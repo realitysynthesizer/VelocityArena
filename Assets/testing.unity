@@ -2668,10 +2668,10 @@ MonoBehaviour:
   - {fileID: 1990249278671422}
   - {fileID: 1681501778656594}
   KPH: 0
-  radius: 8
+  radius: 3
   torque: 1000
   steeringMax: 30
-  turningSpeedRatio: 20
+  turningSpeedRatio: 40
 --- !u!54 &396326958665492194
 Rigidbody:
   m_ObjectHideFlags: 0
