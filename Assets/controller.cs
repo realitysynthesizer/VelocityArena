@@ -19,6 +19,9 @@ public class controller : MonoBehaviour
     public float torque = 400f;
     public float steeringMax = 20;
     public float turningSpeedRatio=1;
+    public float downForceValue=50;
+
+    public float[] slip=new float[4];
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,9 +32,11 @@ public class controller : MonoBehaviour
 
     void FixedUpdate()
     {
+        addDownForce();
         animateWheels();
         moveVehicle();
         steerVehicle();
+        getFriction();
     }
 
     private void moveVehicle()
@@ -93,5 +98,20 @@ public class controller : MonoBehaviour
     {
         IM = GetComponent<inputManager>();
         rigidbody = GetComponent<Rigidbody>();
+    }
+
+    private void addDownForce()
+    {
+        rigidbody.AddForce(-transform.up*downForceValue*rigidbody.linearVelocity.magnitude);
+    }
+
+    private void getFriction()
+    {
+        for (int i=0; i<wheels.Length; i++)
+        {
+            WheelHit wheelHit;
+            wheels[i].GetGroundHit(out wheelHit);
+            slip[i]=wheelHit.forwardSlip;
+        }
     }
 }
